@@ -1,0 +1,27 @@
+public String decodeString(int numberOfRows, String encodedString) {
+        StringBuilder sb = new StringBuilder();
+        int numberOfColumns = encodedString.length() / numberOfRows;
+        char[][] chars = new char[numberOfRows][numberOfColumns];
+        int diagonalI = 0, diagonalJ = 0;
+        int k = 0;
+        for (int i = 0; i < numberOfRows; i++) {//O(R*C), space O(N)
+            for (int j = 0; j < numberOfColumns; j++) {
+                char c = encodedString.charAt(k);
+                chars[i][j] = c;
+                k++;
+            }
+        }
+
+        for (int columnStart = 0; columnStart <= numberOfColumns - 1; columnStart++) {
+            diagonalI = 0;
+            diagonalJ = columnStart;
+
+            while (diagonalI < numberOfRows && diagonalJ < numberOfColumns) {
+                char ch = chars[diagonalI][diagonalJ] == '_' ? ' ' : chars[diagonalI][diagonalJ];
+                sb.append(ch);
+                diagonalI = diagonalI + 1;
+                diagonalJ = diagonalJ + 1;
+            }
+        }
+
+        return sb.toString().trim();
